@@ -1,0 +1,6 @@
+@kavitha_HostAddress = http://localhost:5119
+
+GET {{kavitha_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

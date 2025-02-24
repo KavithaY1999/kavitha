@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35806.99 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kavitha", "kavitha\kavitha.csproj", "{88BEFCA1-F791-4552-AE5A-3AA7C82798BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{88BEFCA1-F791-4552-AE5A-3AA7C82798BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88BEFCA1-F791-4552-AE5A-3AA7C82798BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88BEFCA1-F791-4552-AE5A-3AA7C82798BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88BEFCA1-F791-4552-AE5A-3AA7C82798BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B37C7BD-19E9-43B5-BA1B-D00E912F9A55}
+	EndGlobalSection
+EndGlobal
