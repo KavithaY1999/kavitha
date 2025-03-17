@@ -1,4 +1,5 @@
 using kavitha.DTOS;
+using kavitha.Models;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -54,7 +55,7 @@ namespace kavitha.Controllers
       _context.Users.Update(user);
       await _context.SaveChangesAsync(); // ✅ Now SaveChangesAsync() works!
 
-      return Ok("Profile updated successfully.");
+      return Ok( new{message= "Profile updated successfully." });
     }
 
     // ✅ Change Password
@@ -77,6 +78,46 @@ namespace kavitha.Controllers
       await _context.SaveChangesAsync(); // ✅ Now SaveChangesAsync() works!
 
       return Ok("Password changed successfully.");
+    }
+
+    // DELETE: api/account/delete/{id}
+    //[HttpDelete("delete/{id,Username}")]
+    //public async Task<IActionResult> DeleteUser(int id, string Username)
+    //{
+    //  var user = await _context.Users.FindAsync(id);
+    //  var user1 = await _context.Users.FindAsync(Username);
+    //  if (user == null || user1==null)
+    //  {
+    //    return NotFound();
+    //  }
+
+    //  _context.Users.Remove(user);
+    //  await _context.SaveChangesAsync();
+
+    //  return Ok();
+    //}
+
+    [HttpDelete("delete/{id}/{username}")]
+    public async Task<IActionResult> DeleteUser(int id, string username)
+    {
+      try
+      {
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == id && u.Username == username);
+
+        if (user == null)
+        {
+          return NotFound(new { message = "User not found." });
+        }
+
+        _context.Users.Remove(user);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { message = "User deleted successfully." });
+      }
+      catch (Exception ex)
+      {
+        return StatusCode(500, new { message = "An error occurred while deleting the user.", error = ex.Message });
+      }
     }
 
     // 🔹 Helper: Hash Password

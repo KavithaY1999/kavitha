@@ -1,3 +1,4 @@
+using kavitha.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace kavitha.DTOS
@@ -13,6 +14,6 @@ namespace kavitha.DTOS
     public string Email { get; set; }
 
     [Required]
-    public string UserType { get; set; }
+    public UserType UserType { get; set; }
   }
 }

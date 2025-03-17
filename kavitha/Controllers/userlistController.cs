@@ -51,12 +51,25 @@ namespace kavitha.Controllers
 
       return Ok();
     }
+    // GET: api/account/user/{id}
+    [HttpGet("user/{id}")]
+    public async Task<ActionResult<User>> GetUserById(int id)
+    {
+      var user = await _context.Users.FindAsync(id);
+      if (user == null)
+      {
+        return NotFound();
+      }
+      return Ok(user);
+    }
+
 
     // DELETE: api/account/delete/{id}
     [HttpDelete("delete/{id}")]
     public async Task<IActionResult> DeleteUser(int id)
     {
       var user = await _context.Users.FindAsync(id);
+
       if (user == null)
       {
         return NotFound();
@@ -65,8 +78,43 @@ namespace kavitha.Controllers
       _context.Users.Remove(user);
       await _context.SaveChangesAsync();
 
-      return Ok();
+      return Ok(new { message = " User deleted successfully." });
     }
+    //// POST: api/userlist/register
+    //[HttpPost("register")]
+    //public async Task<IActionResult> RegisterUser([FromBody] User user)
+    //{
+    //  if (user == null || string.IsNullOrEmpty(user.Username) || string.IsNullOrEmpty(user.Email) || string.IsNullOrEmpty(user.PasswordHash) || string.IsNullOrEmpty(user.UserType))
+    //  {
+    //    return BadRequest("All fields are required.");
+    //  }
+
+    //  // Check if the email already exists
+    //  var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
+    //  if (existingUser != null)
+    //  {
+    //    return Conflict("A user with this email already exists.");
+    //  }
+
+    //  try
+    //  {
+    //    // Hash the password
+    //    //user.PasswordHash = HashPassword(user.PasswordHash);
+
+    //    // Add user to the database
+    //    _context.Users.Add(user);
+    //    await _context.SaveChangesAsync();
+
+    //    return Ok(new { message = "User registered successfully!" });
+    //  }
+    //  catch (Exception ex)
+    //  {
+    //    // Log the exception (optional)
+    //    return StatusCode(500, new { message = "An error occurred while registering the user.", error = ex.Message });
+    //  }
+    //}
+
+
 
     private string Userpassword(string password)
     {

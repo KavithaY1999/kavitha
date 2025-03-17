@@ -49,7 +49,7 @@ namespace kavitha.Controllers
       {
         Username = request.Username,
         Email = request.Email,
-        UserType = request.UserType,
+        UserId = request.UserTypeId,
         PasswordHash = HashPassword(request.Password)
       };
 
@@ -57,7 +57,8 @@ namespace kavitha.Controllers
       _context.Users.Add(newUser);
       await _context.SaveChangesAsync();
 
-      return Ok("User registered successfully.");
+      return Ok(new {message= "User registered successfully."});
+
     }
 
     // 2️⃣ User Login Endpoint
@@ -67,7 +68,7 @@ namespace kavitha.Controllers
     {
       var user = await _context.Users.SingleOrDefaultAsync(u => u.Username == loginRequest.Username);
 
-      if (user == null || !VerifyPassword(user.PasswordHash, loginRequest.Password))
+      if (user == null || VerifyPassword(user.PasswordHash, loginRequest.Password))
       {
         return Unauthorized("Invalid username or password.");
       }
@@ -76,6 +77,25 @@ namespace kavitha.Controllers
 
       return Ok(new { token });
     }
+
+    //[HttpPost("login")]
+    //public async Task<IActionResult> Login(LoginRequest loginRequest)
+    //{
+    //  var user = await _context.Users
+    //      .Include(u => u.UserType) // Ensure UserType is included
+    //      .SingleOrDefaultAsync(u => u.Username == loginRequest.Username);
+
+    //  if (user == null || !VerifyPassword(user.PasswordHash, loginRequest.Password))
+    //  {
+    //    return Unauthorized("Invalid username or password.");
+    //  }
+
+    //  // Generate JWT token with user type (role)
+    //  var token = _jwtHelper.GenerateJwtToken(user);
+
+    //  return Ok(new { token, role = user.UserType }); // Include user role in response
+    //}
+
 
 
     // 🔹 Hash Password
